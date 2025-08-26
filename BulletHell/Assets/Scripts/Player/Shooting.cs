@@ -6,11 +6,13 @@ public class Shooting : MonoBehaviour
     public float maxDelay = 0.5f;
     private float delay = 0.0f;
     public int degreesOffset = 90;
+    public Camera mainCamera;
+
     // Update is called once per frame
     void Update()
     {
         Vector3 mousePosition = Input.mousePosition;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        mousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
 
         float x = mousePosition.x - transform.position.x;
         float y = mousePosition.y - transform.position.y;
