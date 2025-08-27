@@ -35,7 +35,10 @@ public class BossShooting : MonoBehaviour
         {   
             if (boss.phase == 1) Phase1Attack();
             else if (boss.phase == 2) Phase2Attack();
-            else if (boss.phase == 3) Phase3Attack();
+            else if (boss.phase == 3) 
+            {
+                Phase3Attack();
+            }
             cooldown = maxCooldown;
         }
     }
@@ -87,6 +90,8 @@ public class BossShooting : MonoBehaviour
     private void Phase3Attack()
     {
         Vector3 playerPos = boss.player.transform.position;
+
+        Debug.Log("Fire3");
         
         int positiveX = Random.Range(0, 2) == 1 ? 1 : -1; 
         int positiveY = Random.Range(0, 2) == 1 ? 1 : -1; 
@@ -99,14 +104,10 @@ public class BossShooting : MonoBehaviour
 
         for (int i = 0; i < 3; i++) 
         {
-            StartCoroutine(SpawnKnife(attackPos, boss.player));
+            GameObject knife = BulletCounter.bC.InstantiateObject(bullets[2], attackPos, Quaternion.identity) as GameObject;
+            knife.GetComponent<Knife>().player = boss.player;
+            Debug.Log("Instantiate: " + i);
         }
     }
 
-    IEnumerator SpawnKnife(Vector3 attackPos, GameObject player)
-    {
-        GameObject knife = BulletCounter.bC.InstantiateObject(bullets[2], attackPos, Quaternion.identity) as GameObject;
-        knife.GetComponent<Knife>().player = player;
-        yield return new WaitForSeconds(0.1f);
-    }
 }

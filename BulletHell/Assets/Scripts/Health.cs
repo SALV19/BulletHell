@@ -34,17 +34,18 @@ public class Health : MonoBehaviour
             Boss bossScript = gameObject.GetComponent<Boss>();
             if (health <= maxHealth * threashold) 
             {
-                bossScript.NextPhase();
                 if (phases == 3) 
                 {
                     phases--;
                     defense += 0.3f;
                     threashold = 0.3f;
+                    bossScript.NextPhase();
                 }
                 else if (phases == 2) 
                 {
                     phases--;
                     defense += 0.3f;
+                    bossScript.NextPhase();
                 }
             }
         }
