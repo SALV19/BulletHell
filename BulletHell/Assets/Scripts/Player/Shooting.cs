@@ -24,7 +24,7 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetMouseButton(0) && delay <= 0)
         {
-            Instantiate(bullet, transform.position, Quaternion.Euler(0, 0, degrees));
+            BulletCounter.bC.InstantiateObject(bullet, transform.position, Quaternion.Euler(0, 0, degrees));
             delay = maxDelay;
         }
 

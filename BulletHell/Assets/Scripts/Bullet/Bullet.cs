@@ -8,13 +8,14 @@ public class Bullet : MonoBehaviour
     public int damage = 10;
     public float delay = 0;
 
+
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            Destroy(gameObject);
+            BulletCounter.bC.DestroyObject(gameObject);
         }
 
         if (delay <= 0)
@@ -28,10 +29,10 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.tag == "Boss" || collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<Health>().Hit(damage);
-            Destroy(gameObject);
+            BulletCounter.bC.DestroyObject(gameObject);
         }
         else if (collision.gameObject.tag != "BossBullet")
-            Destroy(gameObject);
+            BulletCounter.bC.DestroyObject(gameObject);
     }
 
 }

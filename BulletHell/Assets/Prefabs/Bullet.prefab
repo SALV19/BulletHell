@@ -172,3 +172,4 @@ MonoBehaviour:
   speed: 15
   timer: 2
   damage: 10
+  delay: 0

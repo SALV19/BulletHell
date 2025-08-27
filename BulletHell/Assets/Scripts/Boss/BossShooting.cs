@@ -45,7 +45,7 @@ public class BossShooting : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             Vector3 randomValues = new Vector3(Random.Range(-2.0f, 2.0f), Random.Range(-2.0f, 2.0f), 0);
-            Instantiate(bullets[0], fireSpawner.transform.position + randomValues, Quaternion.Euler(0, 0, degrees));
+            BulletCounter.bC.InstantiateObject(bullets[0], fireSpawner.transform.position + randomValues, Quaternion.Euler(0, 0, degrees));
         }
 
     }
@@ -68,7 +68,7 @@ public class BossShooting : MonoBehaviour
                 {
                     if (innerCooldown <= 0) 
                     {
-                        Instantiate(bullets[1], transform.position, Quaternion.Euler(0, 0, degrees + spanOffset));
+                        BulletCounter.bC.InstantiateObject(bullets[1], transform.position, Quaternion.Euler(0, 0, degrees + spanOffset));
                         spanOffset += offsetChange;
                         innerCooldown = maxInnerCooldown;
                     }
@@ -86,6 +86,27 @@ public class BossShooting : MonoBehaviour
 
     private void Phase3Attack()
     {
+        Vector3 playerPos = boss.player.transform.position;
+        
+        int positiveX = Random.Range(0, 2) == 1 ? 1 : -1; 
+        int positiveY = Random.Range(0, 2) == 1 ? 1 : -1; 
 
+        int randomX = Random.Range(1, 5) * positiveX;
+        int randomY = Random.Range(1, 5) * positiveY;
+
+        Vector3 randomValues = new Vector3(randomX, randomY, 0);
+        Vector3 attackPos = playerPos + randomValues;
+
+        for (int i = 0; i < 3; i++) 
+        {
+            StartCoroutine(SpawnKnife(attackPos, boss.player));
+        }
+    }
+
+    IEnumerator SpawnKnife(Vector3 attackPos, GameObject player)
+    {
+        GameObject knife = BulletCounter.bC.InstantiateObject(bullets[2], attackPos, Quaternion.identity) as GameObject;
+        knife.GetComponent<Knife>().player = player;
+        yield return new WaitForSeconds(0.1f);
     }
 }

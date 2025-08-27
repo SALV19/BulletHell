@@ -8,16 +8,15 @@ public class Boss : MonoBehaviour
     public Vector2 direction;
     private SpriteRenderer spriteR;
 
+    public GameObject transition;
+
     public float baseSpeed = 10;
     public float phase2Multiplier = 1.3f;
     public float phase3Multiplier = 1.5f;
 
     public int phase = 1;
 
-    public float life = 100f;
-
     private float multiplier = 1f;
-    private bool notAttacking = true;
 
     void Start()
     {
@@ -27,11 +26,8 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (notAttacking) 
-        {
-            direction = GetPlayerPosition();
-            Move(direction);
-        }
+        direction = GetPlayerPosition();
+        Move(direction);
     }
 
     Vector2 GetPlayerPosition()
@@ -55,11 +51,27 @@ public class Boss : MonoBehaviour
         {
             multiplier = phase2Multiplier;
             spriteR.sprite = sprites[1];
+            InstantiateTransition();
         }
         else if (phase == 3)
         {
             multiplier = phase3Multiplier;
             spriteR.sprite = sprites[2];
+            InstantiateTransition();
         }
+    }
+
+    public void InstantiateTransition()
+    {
+        BulletCounter.bC.InstantiateObject(transition, transform);
+        GetComponentInChildren<BossShooting>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+        float innerTimer = 1.0f;
+        while (innerTimer > 0)
+        {
+            innerTimer -= Time.deltaTime;
+        }
+        GetComponentInChildren<BossShooting>().enabled = true;
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
     }
 }
