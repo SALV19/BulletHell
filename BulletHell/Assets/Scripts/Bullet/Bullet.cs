@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
     public int speed = 10;
     public float timer = 0.5f;
     public int damage = 10;
+    public float delay = 0;
 
     // Update is called once per frame
     void Update()
@@ -16,17 +17,21 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        transform.position += -transform.up * speed * Time.deltaTime;
+        if (delay <= 0)
+            transform.position += -transform.up * speed * Time.deltaTime;
+        else 
+            delay -= Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collided with: ", collision);
         if (collision.gameObject.tag == "Boss" || collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<Health>().Hit(damage);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        else if (collision.gameObject.tag != "BossBullet")
+            Destroy(gameObject);
     }
 
 }

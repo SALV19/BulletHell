@@ -17028,6 +17028,88 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   player: {fileID: 164403944}
   boss: {fileID: 1821250092}
+--- !u!1 &947197021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 947197022}
+  - component: {fileID: 947197023}
+  m_Layer: 0
+  m_Name: Axis
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &947197022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947197021}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1040390898}
+  m_Father: {fileID: 1821250094}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &947197023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947197021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6268b2ff66dbfbd40aa77bcd7bdb6642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossShooting
+  bullets:
+  - {fileID: 4237868883778374792, guid: b6ca363a902cb614b938098462d4e5dd, type: 3}
+  - {fileID: 4237868883778374792, guid: 15526745c4a8c7341a4c2ee85e2c5c73, type: 3}
+  direction: {x: 0, y: 0}
+  degreesOffset: 90
+  maxCooldown: 1
+--- !u!1 &1040390897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1040390898}
+  m_Layer: 8
+  m_Name: Shooter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1040390898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040390897}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 947197022}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1442206366
 GameObject:
   m_ObjectHideFlags: 0
@@ -17085,11 +17167,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1821250094}
   - component: {fileID: 1821250093}
-  - component: {fileID: 1821250095}
   - component: {fileID: 1821250096}
-  - component: {fileID: 1821250098}
   - component: {fileID: 1821250097}
-  m_Layer: 0
+  - component: {fileID: 1821250095}
+  - component: {fileID: 1821250098}
+  m_Layer: 8
   m_Name: Boss
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -17166,7 +17248,8 @@ Transform:
   m_LocalPosition: {x: 0.77, y: 6.166692, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 947197022}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1821250095
@@ -17182,11 +17265,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Phase1
   player: {fileID: 164403944}
+  phases:
+  - {fileID: -5622901713081898559, guid: d85909ddf9e783e41ad0f9089d5abe1c, type: 3}
+  - {fileID: 5181654206020448988, guid: ca6255ec873e58342b357f06e57382f7, type: 3}
+  - {fileID: -4178046375966092550, guid: 2a151d511ee206f4284f99664cdcc199, type: 3}
+  direction: {x: 0, y: 0}
   baseSpeed: 10
   phase2Multiplier: 1.3
   phase3Multiplier: 1.5
-  maxCooldown: 1
-  phase: 1
+  phase: 2
   life: 100
 --- !u!50 &1821250096
 Rigidbody2D:
@@ -17264,7 +17351,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc191bc55a481454c96974f6dc7e1edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  health: 10
+  maxHealth: 10
+  threashold: 0.5
+  health: 100
 --- !u!1 &1910412179
 GameObject:
   m_ObjectHideFlags: 0
